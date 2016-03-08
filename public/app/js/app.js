@@ -1,4 +1,4 @@
-var app = angular.module('MusicApp', ['MusicCtrls', 'ngRoute']);
+var app = angular.module('MusicApp', ['MusicCtrls', 'ngRoute', 'd3']);
 
 app.config([
 	'$routeProvider',
