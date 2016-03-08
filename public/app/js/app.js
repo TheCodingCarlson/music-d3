@@ -1,4 +1,4 @@
-var app = angular.module('MusicApp', ['ngRoute']);
+var app = angular.module('MusicApp', ['MusicCtrls', 'ngRoute']);
 
 app.config([
 	'$routeProvider',
@@ -6,6 +6,15 @@ app.config([
 	function($routeProvider, $locationProvider) {
 		$routeProvider.when('/', {
 			templateUrl: 'app/views/music.html',
-			controller: 
+			controller: 'SearchCtrl' 
 		})
-}])
+		.when('/history', {
+			templateUrl: 'app/views/history.html',
+			controller: 'HistoryCtrl'
+		})
+		.otherwise({
+			templateUrl: 'app/views/error.html'
+		});
+
+		$locationProvider.html5Mode(true);
+}]);
