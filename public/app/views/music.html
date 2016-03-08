@@ -1,1 +1,10 @@
 <h1>Music</h1>
+
+<form ng-controller='SearchCtrl' ng-submit="searchMusic(searchTerm)">
+	<div class="form-group">
+		<label for="">Search Artist</label>
+		<input type="text" class="form-control" ng-model="searchTerm" placeholder="Band or Artist...">
+	</div>
+
+	<button type="submit" class="btn btn-primary">Submit</button>
+</form>
