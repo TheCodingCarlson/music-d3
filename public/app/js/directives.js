@@ -1,12 +1,12 @@
-angular.module('MusicDirectives', ['d3'])
-.directive('d3Bars', ['d3Service', function(d3Service) {
+angular.module('D3Directives', ['D3Services'])
+.directive('d3Bars', ['d3', '$window', function(d3, $window) {
 	return {
 		restrict: 'EA',
 		scope: {
 			data: '='
 		},
 		link: function(scope, element, attrs) {
-			d3Service.d3().then(function(d3) {
+			d3.d3().then(function(d3) {
 				var margin = parseInt(attrs.margin) || 20;
 				var barHeight = parseInt(attrs.barHeight) || 30;
 				var barPadding = parseInt(attrs.barPadding) || 5;
@@ -20,12 +20,11 @@ angular.module('MusicDirectives', ['d3'])
 				};
 
           		scope.$watch(function() {
-          			return angular.element(window)[0].innerWidth;
+          			return angular.element($window)[0].innerWidth;
           		}, function() {
           			scope.render(scope.data);
           		});
 
-         
           		scope.render = function(data) {
           			svg.selectAll('*').remove();
 
@@ -70,9 +69,6 @@ angular.module('MusicDirectives', ['d3'])
           				.text(function(d) {
           					return d.label + ' - ' + d.score.toString();
           				});
-
-
-          		
           		}
 
           		scope.$watch('data', function(newVals, oldVals) {
@@ -82,4 +78,55 @@ angular.module('MusicDirectives', ['d3'])
 			});
 		}
 	}
-}]);
+}])
+.directive('d3Bubble', ['d3', '$window', function(d3, $window) {
+	return {
+		restrict: 'E',
+		scope: {
+			data: '='
+		},
+		link: function(scope, element, attrs) {
+			d3.d3().then(function(d3) {
+				var svg = d3.select(element[0])
+					.append('svg')
+					.style('width', '100%');
+
+				window.onresize = function() {
+					scope.$apply();
+				};
+
+				scope.$watch(function() {
+					return angular.element($window)[0].innerWidth;
+				}, function() {
+					scope.render(scope.data);
+				});
+
+				scope.$watchCollection('data', function(newVals, oldVals) {
+					scope.render(scope.data)
+				});
+
+				scope.render = function(data) {
+					svg.selectAll('*').remove();
+
+					if(!data) return;
+
+					var parentWidth = svg.node().getBoundingClientRect().width;
+					var diameter = parentWidth * 0.89;
+
+					var bubble = d3.layout.pack()
+						.sort(null)
+						.size([diameter, diameter])
+						.padding(15);
+
+					svg.attr('width', diameter)
+						.attr('height', diameter)
+						.attr('class', 'bubble');
+
+					// var node = svg.selectAll('.node')
+				}
+
+
+			})
+		}
+	}
+}])

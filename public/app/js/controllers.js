@@ -1,4 +1,4 @@
-angular.module('MusicCtrls', [])
+angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 .controller('SearchCtrl', ['$scope', '$http', function($scope, $http) {
 
 	$scope.searchMusic = function(term) {
