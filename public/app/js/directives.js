@@ -2,7 +2,9 @@ angular.module('MusicDirectives', ['d3'])
 .directive('d3Bars', ['d3Service', function(d3Service) {
 	return {
 		restrict: 'EA',
-		scope: {},
+		scope: {
+			data: '='
+		},
 		link: function(scope, element, attrs) {
 			d3Service.d3().then(function(d3) {
 				var margin = parseInt(attrs.margin) || 20;
@@ -17,19 +19,13 @@ angular.module('MusicDirectives', ['d3'])
 					scope.$apply();
 				};
 
-				scope.data = [
-	            	{name: "Greg", score: 98},
-	            	{name: "Ari", score: 96},
-	            	{name: 'Q', score: 75},
-	          	  	{name: "Loser", score: 48}
-          		];
-
           		scope.$watch(function() {
           			return angular.element(window)[0].innerWidth;
           		}, function() {
           			scope.render(scope.data);
           		});
 
+         
           		scope.render = function(data) {
           			svg.selectAll('*').remove();
 
@@ -63,6 +59,11 @@ angular.module('MusicDirectives', ['d3'])
           						return xScale(d.score);
           					});
           		}
+
+          		scope.$watch('data', function(newVals, oldVals) {
+          			return scope.render(newVals);
+          		}, true);
+
 			});
 		}
 	}
