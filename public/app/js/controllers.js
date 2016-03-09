@@ -15,6 +15,8 @@ angular.module('MusicCtrls', [])
 		}, function(res) {
 			console.log(res);
 		});
+
+		$scope.searchTerm = '';
 	}
 }]).controller('HistoryCtrl', ['$scope', function($scope) {
 
