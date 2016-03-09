@@ -11,17 +11,19 @@ angular.module('MusicCtrls', [])
 				$scope.albums = res.data.topalbums.album;
 				$scope.name = $scope.albums[0].artist.name;
 				console.log($scope.albums);
-
+				console.log('*****************');
 
 				$scope.d3Data = [
-					{score: $scope.albums[0].playcount},
-					{score: $scope.albums[1].playcount},
-					{score: $scope.albums[2].playcount},
-					{score: $scope.albums[3].playcount},
-					{score: $scope.albums[4].playcount},
-					{score: $scope.albums[5].playcount},
+					{label: $scope.albums[0].name, score: $scope.albums[0].playcount},
+					{label: $scope.albums[1].name, score: $scope.albums[1].playcount},
+					{label: $scope.albums[2].name, score: $scope.albums[2].playcount},
+					{label: $scope.albums[3].name, score: $scope.albums[3].playcount},
+					{label: $scope.albums[4].name, score: $scope.albums[4].playcount},
+					{label: $scope.albums[5].name, score: $scope.albums[5].playcount}
 
     			];
+
+    			console.log($scope.d3Data);
 
 			}
 		}, function(res) {

@@ -8,7 +8,7 @@ angular.module('MusicDirectives', ['d3'])
 		link: function(scope, element, attrs) {
 			d3Service.d3().then(function(d3) {
 				var margin = parseInt(attrs.margin) || 20;
-				var barHeight = parseInt(attrs.barHeight) || 20;
+				var barHeight = parseInt(attrs.barHeight) || 30;
 				var barPadding = parseInt(attrs.barPadding) || 5;
 
 				var svg = d3.select(element[0])
@@ -58,6 +58,21 @@ angular.module('MusicDirectives', ['d3'])
           					.attr('width', function(d) {
           						return xScale(d.score);
           					});
+
+          			svg.selectAll('text')
+          				.data(data).enter()
+          				.append('text')
+          				.attr('fill', '#fff')
+          				.attr('y', function(d,i) {
+          					return i * 35 + 22;
+          				})
+          				.attr('x', 15)
+          				.text(function(d) {
+          					return d.label + ' - ' + d.score.toString();
+          				});
+
+
+          		
           		}
 
           		scope.$watch('data', function(newVals, oldVals) {
