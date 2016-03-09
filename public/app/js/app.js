@@ -11,6 +11,9 @@ app.config([
 		.when('/history', {
 			templateUrl: 'app/views/history.html',
 			controller: 'HistoryCtrl'
+		}).when('/popular', {
+			templateUrl: 'app/views/popular.html',
+			controller: 'PopCtrl'
 		})
 		.otherwise({
 			templateUrl: 'app/views/error.html'

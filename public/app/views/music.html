@@ -1,20 +1,16 @@
-<h1>Music</h1>
+<h1>Popular Albums</h1>
 
 <form ng-submit="searchMusic(searchTerm)">
 	<div class="form-group">
-		<label for="">Search Artist</label>
+		<label>Search Any Artist or Band to See Their 5 Most Popular Albums with Play Count</label>
 		<input type="text" class="form-control" ng-model="searchTerm" placeholder="Band or Artist...">
 	</div>
-
-	<!-- <button type="submit" class="btn btn-primary">Submit</button> -->
 </form>
 
-
-
-<div d3-bars data="d3Data">
+<div>
+	<h2> Results for: {{name}}</h2>
+	<div d3-bars data="d3Data">
+	</div>
 </div>
 
-
-<!-- <div class="well" ng-repeat="album in albums">
-	<h2>{{ album.name }}</h2>
-</div> -->
+<a class="btn btn-primary" type="button" href="/popular">Current Top Artists</a>
