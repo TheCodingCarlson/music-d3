@@ -2,11 +2,6 @@ body {
 	font-family: 'Lato', sans-serif;
 }
 
-/*
-circle {
-	border: 1px solid black;
-}*/
-
 svg {
   margin-left: 2.5%;
 }
@@ -16,9 +11,4 @@ circle {
   fill-opacity: .75;
   stroke: rgb(31, 119, 180);
   /*stroke-width: 1px;*/
-}
-
-.leaf circle {
-  fill: #ff7f0e;
-  fill-opacity: 1;
 }
