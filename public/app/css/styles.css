@@ -12,3 +12,7 @@ circle {
   stroke: rgb(31, 119, 180);
   /*stroke-width: 1px;*/
 }
+
+.bar-graph {
+	background-color: black;
+}

@@ -13,7 +13,8 @@ angular.module('D3Directives', ['D3Services'])
 
 				var svg = d3.select(element[0])
 					.append('svg')
-					.style('width', '100%');
+					.style('width', '100%')
+					.attr('class', 'bar-graph');
 
 				window.onresize = function() {
 					scope.$apply();
@@ -61,7 +62,7 @@ angular.module('D3Directives', ['D3Services'])
           			svg.selectAll('text')
           				.data(data).enter()
           				.append('text')
-          				.attr('fill', '#fff')
+          				.attr('fill', 'white')
           				.attr('y', function(d,i) {
           					return i * 35 + 22;
           				})
