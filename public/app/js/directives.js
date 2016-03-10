@@ -81,7 +81,7 @@ angular.module('D3Directives', ['D3Services'])
 }])
 .directive('d3Bubble', ['d3', '$window', function(d3, $window) {
 	return {
-		restrict: 'E',
+		restrict: 'EA',
 		scope: {
 			data: '='
 		},
@@ -122,11 +122,48 @@ angular.module('D3Directives', ['D3Services'])
 						.attr('height', diameter)
 						.attr('class', 'bubble');
 
-					// var node = svg.selectAll('.node')
-				}
+					var node = svg.selectAll('.node')
+						.data(bubble.nodes({children: data}))
+						.enter().append('g')
+						.attr('class', 'node')
+						.attr('transform', function(d) {
+							return 'translate(' + d.x + ',' + d.y + ')';
+						});
 
+					node.append('name')
+						.text(function(d) {
+							return d.name
+						});
 
-			})
+					node.append('circle')
+						.attr('r', 5)
+						.transition()
+						.duration(function() {
+							return Math.floor(Math.random() * 1250 + 250);
+						})
+						.attr('r', function(d) {
+							return d.r
+						})
+						.style('stroke-width', '1px');
+
+					node.append('text')
+						.text(function(d) {
+							return d.name;
+						})
+						.style('font-size', 1)
+						.transition()
+						.duration(function() {
+							return Math.floor((Math.random() * 1500) + 500);
+						})
+						.style('font-size', function(d) {
+							return (d.r/2.2);
+						})
+						.style('text-anchor', 'middle');
+
+					svg.select("circle")
+              			.style('stroke', 'none');
+				};
+			});
 		}
-	}
-}])
+	};
+}]);

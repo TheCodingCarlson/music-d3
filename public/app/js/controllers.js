@@ -9,11 +9,9 @@ angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 			if(res.status === 200) {
 				$scope.albums = res.data.topalbums.album;
 				$scope.name = $scope.albums[0].artist.name;
-				console.log($scope.albums);
-
 			}
 
-			$scope.d3Data = [
+			$scope.d3BarChartData = [
 				{label: $scope.albums[0].name, score: $scope.albums[0].playcount},
 				{label: $scope.albums[1].name, score: $scope.albums[1].playcount},
 				{label: $scope.albums[2].name, score: $scope.albums[2].playcount},
@@ -41,8 +39,19 @@ angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 	}).then(function(res) {
 		if(res.status === 200) {
 			$scope.artists = res.data.artists.artist;
-			console.log($scope.artists);
+			console.log($scope.artists[0].playcount);
 		}
+
+		$scope.d3BubbleCloudData = [
+				{name: $scope.artists[0].name, value: $scope.artists[0].playcount},
+				{name: $scope.artists[1].name, value: $scope.artists[1].playcount},
+				{name: $scope.artists[2].name, value: $scope.artists[2].playcount},
+				{name: $scope.artists[3].name, value: $scope.artists[3].playcount},
+				{name: $scope.artists[4].name, value: $scope.artists[4].playcount}
+ 		];
+
+		
+	
 	}, function(res) {
 		console.log(res);
 	});
