@@ -130,11 +130,6 @@ angular.module('D3Directives', ['D3Services'])
 							return 'translate(' + d.x + ',' + d.y + ')';
 						});
 
-					node.append('name')
-						.text(function(d) {
-							return d.name
-						});
-
 					node.append('circle')
 						.attr('r', 5)
 						.transition()
@@ -156,7 +151,7 @@ angular.module('D3Directives', ['D3Services'])
 							return Math.floor((Math.random() * 1500) + 500);
 						})
 						.style('font-size', function(d) {
-							return (d.r/2.2);
+							return (d.r/3);
 						})
 						.style('text-anchor', 'middle');
 

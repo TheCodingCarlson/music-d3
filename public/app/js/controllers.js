@@ -47,7 +47,12 @@ angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 				{name: $scope.artists[1].name, value: $scope.artists[1].playcount},
 				{name: $scope.artists[2].name, value: $scope.artists[2].playcount},
 				{name: $scope.artists[3].name, value: $scope.artists[3].playcount},
-				{name: $scope.artists[4].name, value: $scope.artists[4].playcount}
+				{name: $scope.artists[4].name, value: $scope.artists[4].playcount},
+				{name: $scope.artists[5].name, value: $scope.artists[5].playcount},
+				{name: $scope.artists[6].name, value: $scope.artists[6].playcount},
+				{name: $scope.artists[7].name, value: $scope.artists[7].playcount},
+				{name: $scope.artists[8].name, value: $scope.artists[8].playcount},
+				{name: $scope.artists[9].name, value: $scope.artists[9].playcount}
  		];
 
 		
