@@ -1,4 +1,4 @@
-angular.module('D3Services', [])
+angular.module('D3Services', ['ngResource'])
 	.factory('d3', ['$document', '$q', '$rootScope', 
 		function($document, $q, $rootScope) {
 			var deferred = $q.defer();
@@ -28,4 +28,7 @@ angular.module('D3Services', [])
 					return deferred.promise;
 			}
 		};
-	}]);
+	}])
+	.factory('Word', ['$resource', function($resource) {
+		return $resource('api/words/');
+	}])

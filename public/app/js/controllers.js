@@ -30,9 +30,8 @@ angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 
 		$scope.searchTerm = '';
 	}
-}]).controller('HistoryCtrl', ['$scope', function($scope) {
-
-}]).controller('PopCtrl', ['$scope', '$http', function($scope, $http) {
+}])
+.controller('PopCtrl', ['$scope', '$http', function($scope, $http) {
 	$http({
 		url: 'http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=66d584518050d6a47dc9f9eedefd2a5c&format=json',
 		method: 'GET'
@@ -61,4 +60,12 @@ angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 		console.log(res);
 	});
 
+}])
+.controller('HistoryCtrl', ['$scope', 'Word', function($scope, Word) {
+	$scope.words = [];
+	Word.query(function success(data) {
+		$scope.words = data;
+	}, function error(data) {
+		console.log('Error: ', data);
+	});
 }]);
