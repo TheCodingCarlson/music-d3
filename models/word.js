@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var WordSchema = new mongoose.Schema({
+var WordSchema = mongoose.Schema({
   word: String,
   value: Number
 });
