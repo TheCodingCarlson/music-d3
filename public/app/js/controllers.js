@@ -1,16 +1,7 @@
 angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
-.controller('SearchCtrl', ['Word', '$scope', '$http', function(Word, $scope, $http) {
+.controller('SearchCtrl', ['$scope', '$http', function($scope, $http) {
 
 	$scope.searchMusic = function(term) {
-
-		var params = {
- 				word: $scope.searchTerm,
- 				value: 1
- 			} ;
-
- 			var newWord = new Word(params);
- 			newWord.$save();
- 			console.log(newWord);
 		$http({
 			url: 'http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=' + term + '&api_key=66d584518050d6a47dc9f9eedefd2a5c&format=json',
 			method: 'GET'
@@ -31,19 +22,12 @@ angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 				{label: $scope.albums[7].name, score: $scope.albums[7].playcount},
 				{label: $scope.albums[8].name, score: $scope.albums[8].playcount},
 				{label: $scope.albums[9].name, score: $scope.albums[9].playcount}
- 			];
-
-
- 			
-
-			
+ 			];	
 		}, function(res) {
 			console.log(res);
 		});
 
 		$scope.searchTerm = '';
-
-
 	}
 }])
 .controller('PopCtrl', ['$scope', '$http', function($scope, $http) {
@@ -68,15 +52,12 @@ angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 				{name: $scope.artists[8].name, value: $scope.artists[8].playcount},
 				{name: $scope.artists[9].name, value: $scope.artists[9].playcount}
  		];
-
-		
-	
 	}, function(res) {
 		console.log(res);
 	});
 
 }])
-.controller('HistoryCtrl', ['$scope', 'Word', function($scope, Word) {
+.controller('HistoryCtrl', ['$scope', function($scope) {
 	$scope.words = [];
 	Word.query(function success(data) {
 		$scope.words = data;

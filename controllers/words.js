@@ -22,29 +22,29 @@ mongoose.connect('mongodb://localhost/music-d3');
 // 	// });
 // });
 
-router.post('/', function(req, res) {
-	console.log(req.body);
-	console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-	Word.findOne({search: req.body.word}, function(err, word) {
-		if(err) {
-			console.log(err);
-		} else {
-			if(word) {
-				Word.findByIdAndUpdate(word.id, {value: word.value + 1}, function(err, word) {
-					if(err) console.log(err);
-				});
-			} else {
-				var newWord = new Word({word: req.body.word, value: 1});
-				newWord.save(function(err, data) {
-					if(err) {
-						console.log(err);
-					} else {
-						console.log('Saved ' + data);
-					}
-				});
-			};
-		};
-	});
-});
+// router.post('/', function(req, res) {
+// 	console.log(req.body);
+// 	console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+// 	Word.findOne({search: req.body.word}, function(err, word) {
+// 		if(err) {
+// 			console.log(err);
+// 		} else {
+// 			if(word) {
+// 				Word.findByIdAndUpdate(word.id, {value: word.value + 1}, function(err, word) {
+// 					if(err) console.log(err);
+// 				});
+// 			} else {
+// 				var newWord = new Word({word: req.body.word, value: 1});
+// 				newWord.save(function(err, data) {
+// 					if(err) {
+// 						console.log(err);
+// 					} else {
+// 						console.log('Saved ' + data);
+// 					}
+// 				});
+// 			};
+// 		};
+// 	});
+// });
 
 module.exports = router;
