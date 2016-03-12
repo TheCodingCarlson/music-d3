@@ -8,12 +8,12 @@ app.config([
 			templateUrl: 'app/views/music.html',
 			controller: 'SearchCtrl' 
 		})
-		.when('/history', {
-			templateUrl: 'app/views/history.html',
-			controller: 'HistoryCtrl'
-		}).when('/popular', {
-			templateUrl: 'app/views/popular.html',
-			controller: 'PopCtrl'
+		.when('/tracks', {
+			templateUrl: 'app/views/tracks.html',
+			controller: 'TrackCtrl'
+		}).when('/artists', {
+			templateUrl: 'app/views/artists.html',
+			controller: 'ArtistCtrl'
 		})
 		.otherwise({
 			templateUrl: 'app/views/error.html'

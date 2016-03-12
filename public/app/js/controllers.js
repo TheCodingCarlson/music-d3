@@ -30,14 +30,13 @@ angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 		$scope.searchTerm = '';
 	}
 }])
-.controller('PopCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('ArtistCtrl', ['$scope', '$http', function($scope, $http) {
 	$http({
 		url: 'http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=66d584518050d6a47dc9f9eedefd2a5c&format=json',
 		method: 'GET'
 	}).then(function(res) {
 		if(res.status === 200) {
 			$scope.artists = res.data.artists.artist;
-			console.log($scope.artists[0].playcount);
 		}
 
 		$scope.d3BubbleCloudData = [
@@ -57,11 +56,19 @@ angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 	});
 
 }])
-.controller('HistoryCtrl', ['$scope', function($scope) {
-	$scope.words = [];
-	Word.query(function success(data) {
-		$scope.words = data;
-	}, function error(data) {
-		console.log('Error: ', data);
+.controller('TrackCtrl', ['$scope', '$http', function($scope, $http) {
+	$http({
+		url: 'http://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country=united+states&api_key=66d584518050d6a47dc9f9eedefd2a5c&format=json',
+		method: 'GET'
+	}).then(function(res) {
+		if(res.status === 200) {
+			$scope.tracks = res.data.tracks.track;
+			console.log($scope.tracks);
+		}
+
+		$scope.d3PieChartData = [];
+
+	}, function(res) {
+		console.log(res);
 	});
 }]);
