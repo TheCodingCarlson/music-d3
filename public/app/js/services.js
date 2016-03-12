@@ -30,5 +30,5 @@ angular.module('D3Services', ['ngResource'])
 		};
 	}])
 	.factory('Word', ['$resource', function($resource) {
-		return $resource('api/words/');
-	}])
+		return $resource('/api/words');
+	}]);

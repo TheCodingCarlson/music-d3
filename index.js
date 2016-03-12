@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api', require('./controllers/api.js'));
+app.use('/api/words', require('./controllers/words'));
 
 app.get('/*', function(req, res) {
 	res.sendFile(path.join(__dirname, 'public/index.html'));

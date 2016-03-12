@@ -1,7 +1,16 @@
 angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
-.controller('SearchCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('SearchCtrl', ['Word', '$scope', '$http', function(Word, $scope, $http) {
 
 	$scope.searchMusic = function(term) {
+
+		var params = {
+ 				word: $scope.searchTerm,
+ 				value: 1
+ 			} ;
+
+ 			var newWord = new Word(params);
+ 			newWord.$save();
+ 			console.log(newWord);
 		$http({
 			url: 'http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=' + term + '&api_key=66d584518050d6a47dc9f9eedefd2a5c&format=json',
 			method: 'GET'
@@ -23,12 +32,18 @@ angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 				{label: $scope.albums[8].name, score: $scope.albums[8].playcount},
 				{label: $scope.albums[9].name, score: $scope.albums[9].playcount}
  			];
+
+
+ 			
+
 			
 		}, function(res) {
 			console.log(res);
 		});
 
 		$scope.searchTerm = '';
+
+
 	}
 }])
 .controller('PopCtrl', ['$scope', '$http', function($scope, $http) {
