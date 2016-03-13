@@ -158,11 +158,69 @@ angular.module('D3Directives', ['D3Services'])
 
 					svg.select("circle")
               			.style('stroke', 'none');
-				};
+				}
 			});
 		}
-	};
+	}
 }]).
 directive('d3Pie', ['d3', '$window', function(d3, $window) {
-	
+	return {
+		restrict: 'EA',
+		scope: {
+			data: '='
+		},
+		link: function(scope, element, attrs) {
+			d3.d3().then(function(d3) {
+				var width = 500;
+				var height = 500;
+				var radius = Math.min(width, height) / 2;
+				var svg = d3.select(element[0])
+					.append('svg')
+					.attr('width', width)
+					.attr('height', height)
+					.append('g')
+					.attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
+
+				window.onresize = function() {
+					scope.$apply();
+				};
+
+				scope.$watch(function() {
+					return angular.element($window)[0].innerWidth;
+				}, function() {
+					scope.render(scope.data);
+				});
+
+				scope.$watchCollection('data', function(newVals, oldVals) {
+					scope.render(scope.data)
+				});
+
+				scope.render = function(data) {
+					svg.selectAll('*').remove();
+
+					if(!data) return;
+
+					var color = d3.scale.category20c();
+
+					var arc = d3.svg.arc().outerRadius(radius);
+
+					var pie = d3.layout.pie()
+						.value(function(d) {
+							return d.count;
+						}).sort(null);
+
+					var path = svg.selectAll('path')
+						.data(pie(data))
+						.enter()
+						.append('path')
+						.attr('d', arc) 
+						.attr('fill', function(d, i) {
+							return color(d.data.label);
+						});
+				}
+			});
+
+		}
+	}
+
 }]);
