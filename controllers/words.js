@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var mongoose = require('mongoose');
-var Word = require('../models/word');
-var bodyParser = require('body-parser');
+// var express = require('express');
+// var router = express.Router();
+// var mongoose = require('mongoose');
+// var Word = require('../models/word');
+// var bodyParser = require('body-parser');
 
-mongoose.connect('mongodb://localhost/music-d3');
+// mongoose.connect('mongodb://localhost/music-d3');
 
 // router.get('/', function(req, res) {
 // 	Word.find(function(err, words) {

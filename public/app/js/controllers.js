@@ -68,6 +68,16 @@ angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 
 		$scope.d3PieChartData = [];
 
+		for(var i = 0; i < 10; i++) {
+			var obj = {
+				label: $scope.tracks[i].artist.name + ' - ' + $scope.tracks[i].name,
+				count: $scope.tracks[i].listeners};
+
+				$scope.d3PieChartData.push(obj);
+		}
+
+		console.log($scope.d3PieChartData);
+
 	}, function(res) {
 		console.log(res);
 	});

@@ -162,4 +162,7 @@ angular.module('D3Directives', ['D3Services'])
 			});
 		}
 	};
+}]).
+directive('d3Pie', ['d3', '$window', function(d3, $window) {
+	
 }]);

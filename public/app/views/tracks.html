@@ -1,7 +1,3 @@
-<h1>Most Popular Tracks in Us</h1>
+<h1>Most Popular Tracks in US</h1>
 
-<div class="well" ng-repeat='track in tracks'>
-	<h3>{{ track.name }}</h3>
-	<h4>{{ track.artist.name }}</h4>
-	<h5>{{ track.listeners }}</h5>
-</div>
+<div d3-pie data="d3PieChartData"></div>

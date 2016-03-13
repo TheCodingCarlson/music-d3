@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
+// var mongoose = require('mongoose');
 
-var WordSchema = new mongoose.Schema({
-  word: String,
-  value: Number
-});
+// var WordSchema = new mongoose.Schema({
+//   word: String,
+//   value: Number
+// });
 
-module.exports = mongoose.model('Word', WordSchema);
+// module.exports = mongoose.model('Word', WordSchema);
