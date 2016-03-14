@@ -200,8 +200,7 @@ directive('d3Pie', ['d3', '$window', function(d3, $window) {
 
 					if(!data) return;
 
-					var color = d3.scale.category20c();
-
+					var color = d3.scale.category20c(); 
 					var arc = d3.svg.arc().outerRadius(radius);
 
 					var pie = d3.layout.pie()
@@ -217,9 +216,39 @@ directive('d3Pie', ['d3', '$window', function(d3, $window) {
 						.attr('fill', function(d, i) {
 							return color(d.data.label);
 						});
+
+					var legendRectSize = 18;
+					var legendSpacing = 4;
+
+					var legend = svg.selectAll('.legend')
+						.data(color.domain())
+						.enter()
+						.append('g')
+						.attr('class', 'legend')
+						.attr('transform', function(d, i) {
+							var h = legendRectSize + legendSpacing;
+							var offset = h * color.domain().length / 2;
+							var horz = -5 * legendRectSize;
+							var vert = i * height - offset;
+							return 'translate(' + horz + ',' + vert + ')';
+ 						});
+
+ 					legend.append('rect')
+ 						.attr('width', legendRectSize)
+ 						.attr('height', legendRectSize)
+ 						.style('fill', color)
+ 						.style('stroke', color);
+
+ 					legend.append('text')
+ 						.attr('x', legendRectSize + legendSpacing)
+ 						.attr('y', legendRectSize - legendSpacing)
+ 						.text(function(d) {
+ 							return d;
+ 						});
+
+
 				}
 			});
-
 		}
 	}
 
