@@ -219,61 +219,30 @@ directive('d3Pie', ['d3', '$window', function(d3, $window) {
 						});
 
 					var legend = d3.select("#chart").append("svg")
-  .attr("class", "legend")
-  .attr("width", radius)
-  .attr("height", radius * 2)
-  .selectAll("g")
-  .data(data)
-  .enter().append("g")
-  .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+					  .attr("class", "legend")
+					  .attr("width", radius)
+					  .attr("height", radius * 2)
+					  .selectAll("g")
+					  .data(data)
+					  .enter().append("g")
+					  .attr("transform", function(d, i) { 
+					  	return "translate(0," + i * 20 + ")"; 
+					  });
 
-legend.append("rect")
-  .attr("width", 18)
-  .attr("height", 18)
-  .style("fill", function(d) {
-  	return color(d.label);
-  });
+					legend.append("rect")
+					  .attr("width", 18)
+					  .attr("height", 18)
+					  .style("fill", function(d) {
+					  	return color(d.label);
+					  });
 
-legend.append("text")
-  .attr("x", 24)
-  .attr("y", 9)
-  .attr("dy", ".35em")
-  .text(function(d) { return d.label; });
-
-					// var legendRectSize = 18;
-					// var legendSpacing = 4;
-
-					// var legend = svg.selectAll('.legend')
-					// 	.data(color.domain())
-					// 	.enter()
-					// 	.append('g')
-					// 	.attr('class', 'legend')
-					// 	.attr('transform', function(d, i) {
-					// 		var h = legendRectSize + legendSpacing;
-					// 		var offset = h * color.domain().length / 2;
-					// 		var horz = -10 * legendRectSize;
-					// 		var vert = i * height - offset;
-					// 		return 'translate(' + horz + ',' + vert + ')';
- 				// 		});
-
- 					// legend.select('rect')
- 					// 	.data(data).enter()
- 					// 	.append('rect')
- 					// 	.attr('width', legendRectSize)
- 					// 	.attr('height', legendRectSize)
- 					// 	.style('fill', color)
- 					// 	.style('stroke', 'white');
-
- 					// legend.select('text')
- 					// 	.data(data).enter()
- 					// 	.append('text')
- 					// 	.attr('fill', 'black')
- 					// 	.attr('x', legendRectSize + legendSpacing)
- 					// 	.attr('y', legendRectSize - legendSpacing)
- 					// 	.text(function(d) {
- 					// 		return d.label;
- 					// 	});
-
+					legend.append("text")
+					  .attr("x", 24)
+					  .attr("y", 9)
+					  .attr("dy", ".35em")
+					  .text(function(d) { 
+					  	return d.label; 
+					  });
 				}
 			});
 		}
