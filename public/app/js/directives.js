@@ -181,15 +181,15 @@ directive('d3Pie', ['d3', '$window', function(d3, $window) {
 					.append('g')
 					.attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
 
-				window.onresize = function() {
-					scope.$apply();
-				};
+				// window.onresize = function() {
+				// 	scope.$apply();
+				// };
 
-				scope.$watch(function() {
-					return angular.element($window)[0].innerWidth;
-				}, function() {
-					scope.render(scope.data);
-				});
+				// scope.$watch(function() {
+				// 	return angular.element($window)[0].innerWidth;
+				// }, function() {
+				// 	scope.render(scope.data);
+				// });
 
 				scope.$watchCollection('data', function(newVals, oldVals) {
 					scope.render(scope.data)
@@ -213,39 +213,66 @@ directive('d3Pie', ['d3', '$window', function(d3, $window) {
 						.enter()
 						.append('path')
 						.attr('d', arc) 
+						.attr('stroke', 'white')
 						.attr('fill', function(d, i) {
 							return color(d.data.label);
 						});
 
-					var legendRectSize = 18;
-					var legendSpacing = 4;
+					var legend = d3.select("#chart").append("svg")
+  .attr("class", "legend")
+  .attr("width", radius)
+  .attr("height", radius * 2)
+  .selectAll("g")
+  .data(data)
+  .enter().append("g")
+  .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
-					var legend = svg.selectAll('.legend')
-						.data(color.domain())
-						.enter()
-						.append('g')
-						.attr('class', 'legend')
-						.attr('transform', function(d, i) {
-							var h = legendRectSize + legendSpacing;
-							var offset = h * color.domain().length / 2;
-							var horz = -5 * legendRectSize;
-							var vert = i * height - offset;
-							return 'translate(' + horz + ',' + vert + ')';
- 						});
+legend.append("rect")
+  .attr("width", 18)
+  .attr("height", 18)
+  .style("fill", function(d) {
+  	return color(d.label);
+  });
 
- 					legend.append('rect')
- 						.attr('width', legendRectSize)
- 						.attr('height', legendRectSize)
- 						.style('fill', color)
- 						.style('stroke', color);
+legend.append("text")
+  .attr("x", 24)
+  .attr("y", 9)
+  .attr("dy", ".35em")
+  .text(function(d) { return d.label; });
 
- 					legend.append('text')
- 						.attr('x', legendRectSize + legendSpacing)
- 						.attr('y', legendRectSize - legendSpacing)
- 						.text(function(d) {
- 							return d;
- 						});
+					// var legendRectSize = 18;
+					// var legendSpacing = 4;
 
+					// var legend = svg.selectAll('.legend')
+					// 	.data(color.domain())
+					// 	.enter()
+					// 	.append('g')
+					// 	.attr('class', 'legend')
+					// 	.attr('transform', function(d, i) {
+					// 		var h = legendRectSize + legendSpacing;
+					// 		var offset = h * color.domain().length / 2;
+					// 		var horz = -10 * legendRectSize;
+					// 		var vert = i * height - offset;
+					// 		return 'translate(' + horz + ',' + vert + ')';
+ 				// 		});
+
+ 					// legend.select('rect')
+ 					// 	.data(data).enter()
+ 					// 	.append('rect')
+ 					// 	.attr('width', legendRectSize)
+ 					// 	.attr('height', legendRectSize)
+ 					// 	.style('fill', color)
+ 					// 	.style('stroke', 'white');
+
+ 					// legend.select('text')
+ 					// 	.data(data).enter()
+ 					// 	.append('text')
+ 					// 	.attr('fill', 'black')
+ 					// 	.attr('x', legendRectSize + legendSpacing)
+ 					// 	.attr('y', legendRectSize - legendSpacing)
+ 					// 	.text(function(d) {
+ 					// 		return d.label;
+ 					// 	});
 
 				}
 			});
