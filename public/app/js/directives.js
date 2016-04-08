@@ -81,6 +81,8 @@ angular.module('D3Directives', ['D3Services'])
 	}
 }])
 .directive('d3Bubble', ['d3', '$window', function(d3, $window) {
+	//Credit to Carl Reiner for his Bubble Cloud D3 project 
+	//Source: https://github.com/cfreiner/wdi-project4
 	return {
 		restrict: 'EA',
 		scope: {
@@ -142,6 +144,11 @@ angular.module('D3Directives', ['D3Services'])
 						})
 						.style('stroke-width', '1px');
 
+					var a = Math.random() * 255;
+					var b = Math.random() * 255;
+					var c = Math.random() * 255;
+					var textColor = 'rgb(' + a + ',' + b + ',' + c +')';
+
 					node.append('text')
 						.text(function(d) {
 							return d.name;
@@ -154,7 +161,8 @@ angular.module('D3Directives', ['D3Services'])
 						.style('font-size', function(d) {
 							return (d.r/3);
 						})
-						.style('text-anchor', 'middle');
+						.style('text-anchor', 'middle')
+						.style('fill', textColor);
 
 					svg.select("circle")
               			.style('stroke', 'none');
@@ -173,7 +181,7 @@ directive('d3Pie', ['d3', '$window', function(d3, $window) {
 			d3.d3().then(function(d3) {
 				var width = 500;
 				var height = 500;
-				var radius = Math.min(width, height) / 2;
+				// var radius = Math.min(width, height) / 2;
 				var svg = d3.select(element[0])
 					.append('svg')
 					.attr('width', width)
@@ -201,6 +209,9 @@ directive('d3Pie', ['d3', '$window', function(d3, $window) {
 					if(!data) return;
 
 					var color = d3.scale.category20c(); 
+
+				 	var radius = Math.min(width, height) / 2;
+
 					var arc = d3.svg.arc().outerRadius(radius);
 
 					var pie = d3.layout.pie()
@@ -240,6 +251,7 @@ directive('d3Pie', ['d3', '$window', function(d3, $window) {
 					  .attr("x", 24)
 					  .attr("y", 9)
 					  .attr("dy", ".35em")
+					  .style("fill", "white")
 					  .text(function(d) { 
 					  	return d.label; 
 					  });

@@ -1,3 +1,5 @@
+//Credit to Gregory Hilkert at ng-newsletter for their tutorial on creating a D3 service in angular.
+//Source: http://www.ng-newsletter.com/posts/d3-on-angular.html
 angular.module('D3Services', [])
 	.factory('d3', ['$document', '$q', '$rootScope', 
 		function($document, $q, $rootScope) {
