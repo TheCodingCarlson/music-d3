@@ -3,7 +3,7 @@ angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 
 	$scope.searchMusic = function(term) {
 		$http({
-			url: 'http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=' + term + '&api_key=66d584518050d6a47dc9f9eedefd2a5c&format=json',
+			url: 'https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=' + term + '&api_key=66d584518050d6a47dc9f9eedefd2a5c&format=json',
 			method: 'GET'
 		}).then(function(res) {
 			if(res.status === 200) {
@@ -32,7 +32,7 @@ angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 }])
 .controller('ArtistCtrl', ['$scope', '$http', function($scope, $http) {
 	$http({
-		url: 'http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=66d584518050d6a47dc9f9eedefd2a5c&format=json',
+		url: 'https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=66d584518050d6a47dc9f9eedefd2a5c&format=json',
 		method: 'GET'
 	}).then(function(res) {
 		if(res.status === 200) {
@@ -58,7 +58,7 @@ angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 }])
 .controller('TrackCtrl', ['$scope', '$http', function($scope, $http) {
 	$http({
-		url: 'http://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country=united+states&api_key=66d584518050d6a47dc9f9eedefd2a5c&format=json',
+		url: 'https://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country=united+states&api_key=66d584518050d6a47dc9f9eedefd2a5c&format=json',
 		method: 'GET'
 	}).then(function(res) {
 		if(res.status === 200) {
