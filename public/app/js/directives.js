@@ -159,7 +159,7 @@ angular.module('D3Directives', ['D3Services'])
 							return Math.floor((Math.random() * 1500) + 500);
 						})
 						.style('font-size', function(d) {
-							return (d.r/3);
+							return (d.r/3.5);
 						})
 						.style('text-anchor', 'middle')
 						.style('fill', textColor);

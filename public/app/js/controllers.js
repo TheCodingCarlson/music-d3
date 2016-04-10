@@ -63,7 +63,6 @@ angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 	}).then(function(res) {
 		if(res.status === 200) {
 			$scope.tracks = res.data.tracks.track;
-			console.log($scope.tracks);
 		}
 
 		$scope.d3PieChartData = [];
