@@ -7,22 +7,28 @@ angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 			method: 'GET'
 		}).then(function(res) {
 			if(res.status === 200) {
-				$scope.albums = res.data.topalbums.album;
-				$scope.name = $scope.albums[0].artist.name;
-			}
-
-			$scope.d3BarChartData = [
-				{label: $scope.albums[0].name, score: $scope.albums[0].playcount},
-				{label: $scope.albums[1].name, score: $scope.albums[1].playcount},
-				{label: $scope.albums[2].name, score: $scope.albums[2].playcount},
-				{label: $scope.albums[3].name, score: $scope.albums[3].playcount},
-				{label: $scope.albums[4].name, score: $scope.albums[4].playcount},
-				{label: $scope.albums[5].name, score: $scope.albums[5].playcount},
-				{label: $scope.albums[6].name, score: $scope.albums[6].playcount},
-				{label: $scope.albums[7].name, score: $scope.albums[7].playcount},
-				{label: $scope.albums[8].name, score: $scope.albums[8].playcount},
-				{label: $scope.albums[9].name, score: $scope.albums[9].playcount}
- 			];	
+				if(res.data.error === 6) {
+					$scope.name = res.data.message;
+					$scope.d3BarChartData = [];
+					
+				} else {
+					$scope.albums = res.data.topalbums.album;
+					$scope.name = $scope.albums[0].artist.name;
+				
+					$scope.d3BarChartData = [
+						{label: $scope.albums[0].name, score: $scope.albums[0].playcount},
+						{label: $scope.albums[1].name, score: $scope.albums[1].playcount},
+						{label: $scope.albums[2].name, score: $scope.albums[2].playcount},
+						{label: $scope.albums[3].name, score: $scope.albums[3].playcount},
+						{label: $scope.albums[4].name, score: $scope.albums[4].playcount},
+						{label: $scope.albums[5].name, score: $scope.albums[5].playcount},
+						{label: $scope.albums[6].name, score: $scope.albums[6].playcount},
+						{label: $scope.albums[7].name, score: $scope.albums[7].playcount},
+						{label: $scope.albums[8].name, score: $scope.albums[8].playcount},
+						{label: $scope.albums[9].name, score: $scope.albums[9].playcount}
+ 					];
+ 				}
+ 			}	
 		}, function(res) {
 			console.log(res);
 		});
