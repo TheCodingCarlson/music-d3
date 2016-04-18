@@ -1,76 +1,53 @@
-angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
-.controller('SearchCtrl', ['$scope', '$http', function($scope, $http) {
+angular.module('MusicCtrls', ['LastFmServices', 'D3Services', 'D3Directives'])
+.controller('SearchCtrl', ['$scope', '$http', 'Albums', function($scope, $http, Albums) {
 
-	$scope.searchMusic = function(term) {
-		$http({
-			url: 'https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=' + term + '&api_key=66d584518050d6a47dc9f9eedefd2a5c&format=json',
-			method: 'GET'
-		}).then(function(res) {
-			if(res.status === 200) {
-				if(res.data.error === 6) {
-					$scope.name = res.data.message;
-					$scope.d3BarChartData = [];
-					
-				} else {
-					$scope.albums = res.data.topalbums.album;
-					$scope.name = $scope.albums[0].artist.name;
-				
-					$scope.d3BarChartData = [
-						{label: $scope.albums[0].name, score: $scope.albums[0].playcount},
-						{label: $scope.albums[1].name, score: $scope.albums[1].playcount},
-						{label: $scope.albums[2].name, score: $scope.albums[2].playcount},
-						{label: $scope.albums[3].name, score: $scope.albums[3].playcount},
-						{label: $scope.albums[4].name, score: $scope.albums[4].playcount},
-						{label: $scope.albums[5].name, score: $scope.albums[5].playcount},
-						{label: $scope.albums[6].name, score: $scope.albums[6].playcount},
-						{label: $scope.albums[7].name, score: $scope.albums[7].playcount},
-						{label: $scope.albums[8].name, score: $scope.albums[8].playcount},
-						{label: $scope.albums[9].name, score: $scope.albums[9].playcount}
- 					];
- 				}
- 			}	
-		}, function(res) {
-			console.log(res);
+	$scope.searchMusic = function(q) {
+
+		Albums.get({q: q}, function(data) {
+			if(data.error === 6) {
+				$scope.name = data.message;
+				$scope.d3BarChartData = [];
+			} else {
+				$scope.albums = data.topalbums.album;
+				$scope.name = $scope.albums[0].artist.name;
+				$scope.d3BarChartData = [];
+
+				for(var i = 0; i < 10; i++) {
+					var obj = {
+						label: $scope.albums[i].name, 
+						score: $scope.albums[i].playcount
+					};
+
+					$scope.d3BarChartData.push(obj);
+				}
+			}
+
+			$scope.query = '';
 		});
-
-		$scope.searchTerm = '';
 	}
 }])
-.controller('ArtistCtrl', ['$scope', '$http', function($scope, $http) {
-	$http({
-		url: 'https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=66d584518050d6a47dc9f9eedefd2a5c&format=json',
-		method: 'GET'
-	}).then(function(res) {
-		if(res.status === 200) {
-			$scope.artists = res.data.artists.artist;
-		}
+.controller('ArtistCtrl', ['$scope', '$http', 'Artists', function($scope, $http, Artists) {
 
-		$scope.d3BubbleCloudData = [
-				{name: $scope.artists[0].name, value: $scope.artists[0].playcount},
-				{name: $scope.artists[1].name, value: $scope.artists[1].playcount},
-				{name: $scope.artists[2].name, value: $scope.artists[2].playcount},
-				{name: $scope.artists[3].name, value: $scope.artists[3].playcount},
-				{name: $scope.artists[4].name, value: $scope.artists[4].playcount},
-				{name: $scope.artists[5].name, value: $scope.artists[5].playcount},
-				{name: $scope.artists[6].name, value: $scope.artists[6].playcount},
-				{name: $scope.artists[7].name, value: $scope.artists[7].playcount},
-				{name: $scope.artists[8].name, value: $scope.artists[8].playcount},
-				{name: $scope.artists[9].name, value: $scope.artists[9].playcount}
- 		];
-	}, function(res) {
-		console.log(res);
+	Artists.get(function(data) {
+
+		$scope.artists = data.artists.artist;
+		$scope.d3BubbleCloudData = [];
+
+		for(var i = 0; i < 10; i++) {
+			var obj = {
+				name: $scope.artists[i].name, 
+				value: $scope.artists[i].playcount
+			};
+
+			$scope.d3BubbleCloudData.push(obj);
+		}
 	});
-
 }])
-.controller('TrackCtrl', ['$scope', '$http', function($scope, $http) {
-	$http({
-		url: 'https://ws.audioscrobbler.com/2.0/?method=geo.gettoptracks&country=united+states&api_key=66d584518050d6a47dc9f9eedefd2a5c&format=json',
-		method: 'GET'
-	}).then(function(res) {
-		if(res.status === 200) {
-			$scope.tracks = res.data.tracks.track;
-		}
+.controller('TrackCtrl', ['$scope', '$http', 'Tracks', function($scope, $http, Tracks) {
 
+	Tracks.get(function(data) {
+
+		$scope.tracks = data.tracks.track;
 		$scope.d3PieChartData = [];
 
 		for(var i = 0; i < 10; i++) {
@@ -80,7 +57,5 @@ angular.module('MusicCtrls', ['D3Services', 'D3Directives'])
 
 				$scope.d3PieChartData.push(obj);
 		}
-	}, function(res) {
-		console.log(res);
 	});
 }]);
